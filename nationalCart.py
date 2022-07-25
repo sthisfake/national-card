@@ -1,8 +1,14 @@
 from asyncio.windows_events import NULL
 from fastapi import FastAPI , Response , Request
 from pydantic import BaseModel
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from starlette.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+
+templates = Jinja2Templates(directory="Template")
 
 class NationalCard(BaseModel):
     nationalCode: int
@@ -43,8 +49,8 @@ cards = {
     "birthDate" : 13970829,
     "fathersName" : "sohrab",
     "expirationDate" : 14011125 ,
-    "faceImage" : "face.jpeg",
-    "cardImage" : "card.jpeg"} , 
+    "faceImage" : "face.png",
+    "cardImage" : "card.png"} , 
 "4":{
     "nationalCode" : 4,
     "firtName" : "ali",
@@ -66,18 +72,32 @@ cards = {
 }
 }
 
+app.mount("/static", StaticFiles(directory="static" , html = True), name="static")
+
+
 @app.post("/new")
 async def creatApi(newCard: NationalCard):
     cards[str(newCard.nationalCode)] = newCard
     return newCard
 
+# @app.get("/{number}" , response_class=HTMLResponse)
+# async def check(number: str ):
+#     if number not in cards:
+#         output = {"error" : "not found item"}
+#         return output
+#     else: 
+#         output = cards.get(number)   
+#     return output
+
+
 @app.get("/{number}")
-async def check(number: str ):
+async def check(number: str , request: Request):
     if number not in cards:
         output = {"error" : "not found item"}
-        return output
+
     else: 
         output = cards.get(number)   
-        return output
 
+    newOutput   = {**{"request": request}, **output}  
+    return templates.TemplateResponse("index.html", newOutput)
 
