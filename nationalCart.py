@@ -30,8 +30,8 @@ cards = {
     "birthDate" : 13970829,
     "fathersName" : "khodabakhsh",
     "expirationDate" : 14011125 ,
-    "faceImage" : "face.jpeg",
-    "cardImage" : "card.jpeg"} , 
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"} , 
 "2":{
     "nationalCode" : 2,
     "firtName" : "reza",
@@ -39,8 +39,8 @@ cards = {
     "birthDate" : 13970829,
     "fathersName" : "ali",
     "expirationDate" : 14011125 ,
-    "faceImage" : "face.jpeg",
-    "cardImage" : "card.jpeg"} ,
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"} ,
 
 "3":{
     "nationalCode" : 3,
@@ -49,8 +49,8 @@ cards = {
     "birthDate" : 13970829,
     "fathersName" : "sohrab",
     "expirationDate" : 14011125 ,
-    "faceImage" : "face.png",
-    "cardImage" : "card.png"} , 
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"} , 
 "4":{
     "nationalCode" : 4,
     "firtName" : "ali",
@@ -58,8 +58,8 @@ cards = {
     "birthDate" : 13970829,
     "fathersName" : "mohammad",
     "expirationDate" : 14011125 ,
-    "faceImage" : "face.jpeg",
-    "cardImage" : "card.jpeg"} ,
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"} ,
 "5":{
     "nationalCode" : 5,
     "firtName" : "shadmehr",
@@ -67,8 +67,8 @@ cards = {
     "birthDate" : 13970829,
     "fathersName" : "panjali",
     "expirationDate" : 14011125 ,
-    "faceImage" : "face.jpeg",
-    "cardImage" : "card.jpeg"
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"
 }
 }
 

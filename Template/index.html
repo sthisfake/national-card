@@ -1,25 +1,3 @@
-<!--
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sample Form</title>
-</head>
-<body>
-<p> name : {{firtName}} {{lastName}}</p>
-<p>national code : {{nationalCode}}</p>
-<p>born : {{birthDate}}</p>
-<p>father name : {{fathersName}}</p>
-<p>face pic : </p> 
-<img src= "../static/images/test.jpg" width="450" height="450">
-</body>
-</html>
-
--->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +20,6 @@
             <div class="col-rt-12">
                 <div class="rt-heading">
                     <h1>National Card Information</h1>
-                    <p>A responsive student profile page design.</p>
                 </div>
             </div>
         </div>
@@ -54,17 +31,19 @@
             <div class="col-rt-12">
                 <div class="Scriptcontent">  
                     <div class="student-profile">
-                        <div class="col-lg-4"> 
-                             <div class="card">
-                                <div class="card-header  text-center">
-                                    <img class="profile_img" src="https://source.unsplash.com/600x300/?student" alt="student dp">
-                                    <h3>Ishmam Ahasan Samin</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Student ID:    321000001</p>
-                                    <p>4            </p>
-                                    <p>Section: A</p>
-                                </div>
+                        <div class="card">
+                            <div class="card-header  text-center">
+                                <img class="profile_img" src="../static/images/{{faceImage}}" alt="student dp">
+                                <h3>{{firtName}}  {{lastName}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p><strong> National Code:</strong> {{nationalCode}}</p>
+                                <p><strong>first name  :</strong> {{firtName}}  </p>
+                                <p><strong>last name: </strong> {{lastName}}</p>
+                                <p><strong>birth date  : </strong>{{birthDate}}</p>
+                                <p><strong>father's name :</strong> {{fathersName}}</p>
+                                <p><strong>expiration Date :</strong> {{expirationDate}}</p>
+                                <img src="../static/images/{{cardImage}}" style='float: right; position:absolute; left: 46%; top: 51%; border-radius: 10px; ' width="300" height="200" />
                             </div>
                         </div>  
                     </div>

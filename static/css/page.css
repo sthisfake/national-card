@@ -60,7 +60,7 @@ h2 span {
 	text-align:center;
 }
 .Scriptcontent{
-	line-height:80px;	
+	line-height:72px;	
 }
 .ScriptHeader h1{
 	font-family: "brandon-grotesque", "Brandon Grotesque", "Source Sans Pro", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
@@ -76,8 +76,8 @@ h2 span {
 
 .rt-container {
 	margin: 0 auto;
-	padding-left:12px;
-	padding-right:12px;
+	padding-left:250px;
+	padding-right:250px;
 }
 
 [class^="col-rt-"] {
@@ -126,7 +126,7 @@ body {
 }
 
 .student-profile .card {
-    border-radius: 10px;
+    border-radius: 25px;
 }
 
 .student-profile .card .card-header .profile_img {
@@ -134,8 +134,8 @@ body {
     height: 150px;
     object-fit: cover;
     margin: 10px auto;
-    border: 10px solid #ccc;
-    border-radius: 50%;
+    border: 5px solid rgb(19, 156, 138);
+    border-radius: 20%;
 }
 
 .student-profile .card h3 {
@@ -146,11 +146,12 @@ body {
 .student-profile .card p {
     font-size: 16px;
     color: #000;
+    margin-top :-40px;
 }
 
 .student-profile .table th,
 .student-profile .table td {
-    font-size: 14px;
+    font-size: 50px;
     padding: 5px 10px;
     color: #000;
 }
