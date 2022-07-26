@@ -12,7 +12,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="Template")
 
 class NationalCard(BaseModel):
-    nationalCode: int
+    nationalCode: int 
     firtName: str
     lastName: str
     birthDate: str
@@ -22,81 +22,71 @@ class NationalCard(BaseModel):
     cardImage: str
 
 
-test = NationalCard
-test.nationalCode = 8
-test.firtName =  "abbbas"
-test.lastName =  "abbbas"
-test.birthDate =  "13970829"
-test.fathersName =  "abbbas"
-test.expirationDate = "14011125"
-test.faceImage = "14011125"
-test.cardImage = "14011125"
+cards = {
+'1' : {
+    "nationalCode" : 1,
+    "firtName" : "pouya",
+    "lastName" : "teimoury",
+    "birthDate" : "13970829",
+    "fathersName" : "khodabakhsh",
+    "expirationDate" : "14011125" ,
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"} , 
+'2':{
+    "nationalCode" : 2,
+    "firtName" : "reza",
+    "lastName" : "farjam",
+    "birthDate" : "13970829",
+    "fathersName" : "ali",
+    "expirationDate" : "14011125" ,
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"} ,
+
+'3':{
+    "nationalCode" : 3,
+    "firtName" : "ahmad",
+    "lastName" : "yazdan",
+    "birthDate" : "13970829",
+    "fathersName" : "sohrab",
+    "expirationDate" :"14011125" ,
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"} , 
+'4':{
+    "nationalCode" : 4,
+    "firtName" : "ali",
+    "lastName" : "hassani",
+    "birthDate" : "13970829",
+    "fathersName" : "mohammad",
+    "expirationDate" : "14011125" ,
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"} ,
+'5':{
+    "nationalCode" : 5,
+    "firtName" : "shadmehr",
+    "lastName" : "gholipor",
+    "birthDate" : "13970829",
+    "fathersName" : "panjali",
+    "expirationDate" : "14011125" ,
+    "faceImage" : "face.JPG",
+    "cardImage" : "card.jpg"
+}
+}
 
 
-test1 = NationalCard
-test1.nationalCode = 1
-test1.firtName =  "pouya"
-test1.lastName =  "teimoury"
-test1.birthDate =  "13970829"
-test1.fathersName =  "khodabakhsh"
-test1.expirationDate = "14011125"
-test1.faceImage = "face.JPG"
-test1.cardImage = "card.jpg"
-
-test2 = NationalCard
-test2.nationalCode = 2
-test2.firtName =  "reza"
-test2.lastName =  "farjam"
-test2.birthDate =  "13970829"
-test2.fathersName =  "ali"
-test2.expirationDate = "14011125"
-test2.faceImage = "face.JPG"
-test2.cardImage = "card.jpg"
-
-test3 = NationalCard
-test3.nationalCode = 3
-test3.firtName =  "ahmad"
-test3.lastName =  "yazdan"
-test3.birthDate =  "13970829"
-test3.fathersName =  "sohrab"
-test3.expirationDate = "14011125"
-test3.faceImage = "face.JPG"
-test3.cardImage = "card.jpg"
-
-test4 = NationalCard
-test4.nationalCode = 4
-test4.firtName =  "ali"
-test4.lastName =  "hassani"
-test4.birthDate =  "13970829"
-test4.fathersName =  "mohammad"
-test4.expirationDate = "14011125"
-test4.faceImage = "face.JPG"
-test4.cardImage = "card.jpg"
-
-
-test5 = NationalCard
-test5.nationalCode = 5
-test5.firtName =  "shadmehr"
-test5.lastName =  "gholipor"
-test5.birthDate =  "13970829"
-test5.fathersName =  "panjali"
-test5.expirationDate = "14011125"
-test5.faceImage = "face.JPG"
-test5.cardImage = "card.jpg"
-
-tests = [test , test1 , test2 , test3 , test4 , test5 ]
 
 #knowing the place of images and css for hytml
 app.mount("/static", StaticFiles(directory="static" , html = True), name="static")
 
 #puting slash '/' betwwen dates
-for sth in tests :
-        sth.birthDate = sth.birthDate[:4] + '/' +  sth.birthDate[4:6] + '/' +  sth.birthDate[6:]
-        sth.expirationDate = sth.expirationDate[:4] + '/' + sth.expirationDate[4:6] + '/' + sth.expirationDate[6:]
+for sth in cards :
+    cards.get(sth)["birthDate"] = cards.get(sth)["birthDate"][:4] + '/' +   cards.get(sth)["birthDate"][4:6] + '/' +  cards.get(sth)["birthDate"][6:]
+    cards.get(sth)["expirationDate"] = cards.get(sth)["expirationDate"][:4] + '/' + cards.get(sth)["expirationDate"][4:6] + '/' + cards.get(sth)["expirationDate"][6:]
+
 
 @app.post("/new")
 async def creatApi(newCard: NationalCard):
-    tests.append(newCard)
+    recevied = newCard.dict()
+    cards[str(newCard.nationalCode)] = recevied
     return newCard
 
 # @app.get("/{number}" , response_class=HTMLResponse)
@@ -111,23 +101,12 @@ async def creatApi(newCard: NationalCard):
 
 @app.get("/{number}")
 async def check(number: str , request: Request): 
-    for example in tests:
-        print(str(example.firtName))    
-        if number == str(example.nationalCode):
-            return templates.TemplateResponse("index.html", {"request": request , str(example.nationalCode) : example})
-    print("sfgusfsf")        
-    return templates.TemplateResponse("nofound.html", {"request": request,"error" : "not found"})      
-
-        
-        # newOutput   = {**{"request": request}, **output} 
-        # return templates.TemplateResponse("nofound.html", newOutput)
-    #     return output
-    # else: 
-        # output = cards[number] 
-        # print(output) 
-        # newOutput   = {**{"request": request}, **output}  
-        # return templates.TemplateResponse("index.html", newOutput)
-        # return output
+        if number not in cards:     
+            output   = {"request": request , "error" : "not found"} 
+            return templates.TemplateResponse("nofound.html", output)
+        else: 
+            output   = {**{"request": request}, **cards.get(number) }  
+            return templates.TemplateResponse("index.html", output)
 
 
 @app.get("/")
