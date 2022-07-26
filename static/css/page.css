@@ -155,3 +155,20 @@ body {
     padding: 5px 10px;
     color: #000;
 }
+
+.lower{
+  position: absolute;
+  top: 700%;
+  left: 25%;
+  background-color: rgb(255, 255, 255);
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 30px;
+}
+
+#instruction{
+  position: absolute;
+  top: 150%;
+  left: 20%;
+  color: rgb(180, 21, 127);
+}
