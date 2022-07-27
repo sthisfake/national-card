@@ -2,10 +2,19 @@ from asyncio.windows_events import NULL
 from hashlib import new
 from fastapi import FastAPI , Response , Request , File, UploadFile
 from pydantic import BaseModel
+
 from fastapi.responses import HTMLResponse
+import fastapi.responses
 from fastapi.templating import Jinja2Templates
 from starlette.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+import shutil
+import uuid
+from starlette.responses import RedirectResponse
+import starlette.status as status
+
+
 
 app = FastAPI()
 
@@ -72,6 +81,9 @@ cards = {
 }
 }
 
+images ={
+
+}
 
 
 #knowing the place of images and css for hytml
@@ -89,15 +101,24 @@ async def creatApi(newCard: NationalCard):
     cards[str(newCard.nationalCode)] = recevied
     return newCard
 
-# @app.get("/{number}" , response_class=HTMLResponse)
-# async def check(number: str ):
-#     if number not in cards:
-#         output = {"error" : "not found item"}
-#         return output
-#     else: 
-#         output = cards.get(number)   
-#     return output
+@app.get("/")
+async def home(request : Request):
+    return templates.TemplateResponse("home.html" , {"request": request})
 
+
+
+@app.post("/test")
+async def create_upload_file(file: UploadFile = File(...)):
+    contents = await file.read() # <-- Important!
+    with open(f'static/images/{file.filename}', "wb") as f:
+        f.write(contents)
+        images["currentUser"] = file.filename
+    return fastapi.responses.RedirectResponse('/test2' ,  status_code=status.HTTP_302_FOUND)
+    
+
+@app.get("/test2")
+async def just_test(request : Request):
+    return templates.TemplateResponse("testImage.html" , {"request": request , "filename":images["currentUser"]})
 
 @app.get("/{number}")
 async def check(number: str , request: Request): 
@@ -109,14 +130,14 @@ async def check(number: str , request: Request):
             return templates.TemplateResponse("index.html", output)
 
 
-@app.get("/")
-async def home(request : Request):
-    return templates.TemplateResponse("home.html" , {"request": request})
 
+# first version of this method 
 
-
-@app.post("/uploadfiles")
-async def create_upload_file(file: UploadFile):
-    return {"filename":file.filename}
-    
-
+# @app.get("/{number}" , response_class=HTMLResponse)
+# async def check(number: str ):
+#     if number not in cards:
+#         output = {"error" : "not found item"}
+#         return output
+#     else: 
+#         output = cards.get(number)   
+#     return output
