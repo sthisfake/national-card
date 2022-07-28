@@ -163,7 +163,7 @@ body {
   background-color: rgb(255, 255, 255);
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
-  border-radius: 30px;
+  border-radius: 20px;
 }
 
 #instruction{

@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from fileinput import filename
 from hashlib import new
 from fastapi import FastAPI , Response , Request , File, UploadFile
 from pydantic import BaseModel
@@ -95,11 +96,7 @@ for sth in cards :
     cards.get(sth)["expirationDate"] = cards.get(sth)["expirationDate"][:4] + '/' + cards.get(sth)["expirationDate"][4:6] + '/' + cards.get(sth)["expirationDate"][6:]
 
 
-@app.post("/new")
-async def creatApi(newCard: NationalCard):
-    recevied = newCard.dict()
-    cards[str(newCard.nationalCode)] = recevied
-    return newCard
+
 
 @app.get("/")
 async def home(request : Request):
@@ -109,16 +106,21 @@ async def home(request : Request):
 
 @app.post("/test")
 async def create_upload_file(file: UploadFile = File(...)):
-    contents = await file.read() # <-- Important!
+    contents = await file.read() 
     with open(f'static/images/{file.filename}', "wb") as f:
         f.write(contents)
-        images["currentUser"] = file.filename
-    return fastapi.responses.RedirectResponse('/test2' ,  status_code=status.HTTP_302_FOUND)
-    
 
-@app.get("/test2")
-async def just_test(request : Request):
-    return templates.TemplateResponse("testImage.html" , {"request": request , "filename":images["currentUser"]})
+    # creating new card to our database with random infromation   //notice : have to be updated later for security and reciving from another place  
+    newCard = NationalCard(nationalCode=len(cards) + 1 , firtName="newUser" + str(len(cards) + 1) 
+    , lastName="newUser" + str(len(cards) + 1) , birthDate= "13970829" , fathersName="newUser" + str(len(cards) + 1) , expirationDate="13970829" ,
+    faceImage="face.JPG" , cardImage=file.filename )
+
+    recevied = newCard.dict()
+    recevied = PutSlash(recevied)
+    cards[str(newCard.nationalCode)] = recevied
+    return fastapi.responses.RedirectResponse(f'/{str(newCard.nationalCode)}' ,  status_code=status.HTTP_302_FOUND)
+
+
 
 @app.get("/{number}")
 async def check(number: str , request: Request): 
@@ -127,7 +129,27 @@ async def check(number: str , request: Request):
             return templates.TemplateResponse("nofound.html", output)
         else: 
             output   = {**{"request": request}, **cards.get(number) }  
-            return templates.TemplateResponse("index.html", output)
+            return templates.TemplateResponse("index.html", output)   
+
+
+def PutSlash(data : dict):
+    data["birthDate"] = data["birthDate"][:4] + '/' +  data["birthDate"][4:6] + '/' +  data["birthDate"][6:]
+    data["expirationDate"] = data["expirationDate"][:4] + '/' + data["expirationDate"][4:6] + '/' + data["expirationDate"][6:]
+    return data
+
+
+# @app.post("/new")
+# async def creatApi(newCard: NationalCard):
+#     recevied = newCard.dict()
+#     cards[str(newCard.nationalCode)] = recevied
+#     return newCard            
+    
+
+# @app.get("/test2")
+# async def just_test(request : Request):
+#     return templates.TemplateResponse("testImage.html" , {"request": request , "filename":images["currentUser"]})
+
+
 
 
 

@@ -20,11 +20,10 @@
                 <div class="rt-heading">
                 <h1>Wellcome</h1> 
                 <h1 id="instruction" > Please Upload your National Card </h1>
-                
                     <div class="lower">
-                        <!--
-                        <div class="Neon Neon-theme-dragdropbox">
-                        <input style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" name="files[]" id="filer_input2" multiple="multiple" type="file">
+                         <a> <br> </a>
+                         <form  action="test" enctype="multipart/form-data" method="post">
+                            <input style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" type="file" name="file" id="file" accept="image/png, image/gif, image/jpeg" required onchange="javascript:updateList()" />
                             <div class="Neon-input-dragDrop">
                                 <div class="Neon-input-inner">
                                     <div class="Neon-input-icon">
@@ -35,24 +34,19 @@
                                     <span style="display:inline-block; margin: 15px 0">or</span>
                                     </div>
                                 <a class="Neon-input-choose-btn blue">Browse images</a>
+                                <a><br></a>
+                                <br/>Selected file:
+                                <div id="fileList"></div>
                                 </div>
                             </div>
-                        </div>
-                         --> 
-                         <a> <br> </a>
-                         <form action="test" enctype="multipart/form-data" method="post">
-                            <input type="file" name="file" accept="image/png, image/gif, image/jpeg" required />
-                            <br/><br/>
-                            <input type="submit" />
+                            <input class="allPost" role="button" type="submit" value="Upload" />
                          </form>
                     </div>   
-           
-                    
-
                 </div>
             </div>
         </div>
     </header>
 
-
+    <script src="../static/js/myScript.js"></script>
 </body>
+</html>
